@@ -12,25 +12,18 @@ public class Main {
         int number = Integer.parseInt(tokenizer.nextToken());
 
         int start = 1, end = 1;
-        int pairCount = 1;
+        int matchCount = 1; // 일단 number 그 자체
         int sum = 1;
-        while (end != number) {
+        while (end < number) {
+            if (sum <= number) {
+                sum += ++end;
+            } else {
+                sum -= start++;
+            }
             if (sum == number) {
-                pairCount++;
-                end++;
-                sum += end;
-            }
-            if (sum < number) {
-                end++;
-                sum += end;
-            }
-            if (sum > number) {
-                sum -= start;
-                start++;
+                matchCount++;
             }
         }
-
-
-        System.out.println(pairCount);
+        System.out.println(matchCount);
     }
 }
