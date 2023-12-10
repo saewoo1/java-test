@@ -1,21 +1,23 @@
 class Solution {
     public String solution(String s) {
-        StringBuilder answer = new StringBuilder();
-        String[] words = s.split(""); // 문자 하나하나로
+        String answer = "";
+        String[] alphabet = s.split(""); // 문자 하나씩으로 인식
+        int idx = 0; // 순서
         
-        int index = 0;
-        for (int i = 0; i < words.length; i++) {
-            if (words[i].equals(" ")) {
-                index = 0;
-                answer.append(" ");
-            } else if (index % 2 == 0) {
-                answer.append(words[i].toUpperCase());
-                index++;
+        for (int i = 0; i < alphabet.length; i++) {
+            if (alphabet[i].equals(" ")) {
+                idx = 0; // 순서 초기화
+                answer += " ";
             } else {
-                answer.append(words[i].toLowerCase());
-                index++;
+                if (idx % 2 == 0) {
+                answer += alphabet[i].toUpperCase();
+                idx++;
+            } else {
+                answer += alphabet[i].toLowerCase();
+                idx++;
+            }
             }
         }
-        return answer.toString();
+        return answer;
     }
 }
