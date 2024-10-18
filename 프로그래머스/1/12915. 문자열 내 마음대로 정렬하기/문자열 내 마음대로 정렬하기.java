@@ -1,15 +1,13 @@
 import java.util.*;
+
 class Solution {
     public String[] solution(String[] strings, int n) {
-        List<String> list = new ArrayList<>();
-        for (String str : strings) {
-            list.add(str.charAt(n) + str);
-        }
-        Collections.sort(list);
-        String[] answer = new String[list.size()];
-        for (int i = 0; i < answer.length; i++) {
-            answer[i] = list.get(i).substring(1);
-        }
-        return answer;
+        Arrays.sort(strings, (s1, s2) -> {
+            if (s1.charAt(n) == (s2.charAt(n))) {
+                return s1.compareTo(s2);
+            }
+            return Character.compare(s1.charAt(n), s2.charAt(n));
+        });
+        return strings;
     }
 }
