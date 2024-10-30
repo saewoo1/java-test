@@ -2,14 +2,12 @@ import java.util.*;
 
 public class Solution {
     public int[] solution(int []arr) {
-        List<Integer> answer = new ArrayList<>();
-        int value = 10;
-        for (int i = 0; i <= arr.length - 1; i++) {
-            if (arr[i] != value) {
-                answer.add(arr[i]);
+        Stack<Integer> stack = new Stack<>();
+        for (int num : arr) {
+            if (stack.isEmpty() || stack.peek() != num) {
+                stack.push(num);
             }
-            value = arr[i];
         }
-        return answer.stream().mapToInt(o -> o).toArray();
+        return stack.stream().mapToInt(e -> e).toArray();
     }
 }
