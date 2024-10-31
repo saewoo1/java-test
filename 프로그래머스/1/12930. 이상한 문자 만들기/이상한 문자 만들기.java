@@ -1,23 +1,23 @@
+import java.util.*;
+
 class Solution {
     public String solution(String s) {
-        String answer = "";
-        String[] alphabet = s.split(""); // 문자 하나씩으로 인식
-        int idx = 0; // 순서
+        String[] words = s.split(" ", -1);
+        StringBuilder sb = new StringBuilder();
         
-        for (int i = 0; i < alphabet.length; i++) {
-            if (alphabet[i].equals(" ")) {
-                idx = 0; // 순서 초기화
-                answer += " ";
-            } else {
-                if (idx % 2 == 0) {
-                answer += alphabet[i].toUpperCase();
-                idx++;
-            } else {
-                answer += alphabet[i].toLowerCase();
-                idx++;
+        for (int i = 0; i < words.length; i++) {
+            for (int j = 0; j < words[i].length(); j++) {
+                if (j % 2 == 0) {
+                    sb.append(Character.toUpperCase(words[i].charAt(j)));
+                }
+                else {
+                    sb.append(Character.toLowerCase(words[i].charAt(j)));
+                }
             }
+            if (i != words.length -1) {
+                sb.append(" ");
             }
         }
-        return answer;
+        return sb.toString();
     }
 }
