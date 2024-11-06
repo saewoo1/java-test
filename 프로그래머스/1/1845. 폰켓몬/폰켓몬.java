@@ -1,14 +1,15 @@
 import java.util.*;
+
 class Solution {
     public int solution(int[] nums) {
-        int answer = 0;
-        HashSet set = new HashSet<>();
-        for (int i = 0; i < nums.length; i++) {
-            set.add(nums[i]);
+        int answer = nums.length / 2;
+        Map<Integer, Integer> counter = new HashMap<>();
+        for (int num : nums) {
+            counter.put(num, counter.getOrDefault(num, 0) + 1);
         }
-        if (set.size() < nums.length / 2) { // 서로 다른 마리수, 최대로 가질 수 있는 마리수(중복 포함) 비교
-            return set.size();
+        if (counter.size() < answer) {
+            answer = counter.size();
         }
-        return nums.length / 2;
+        return answer;
     }
 }
