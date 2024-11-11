@@ -2,31 +2,28 @@ import java.util.*;
 
 class Solution {
     public String solution(String X, String Y) {
-        StringBuilder sb = new StringBuilder();
-        Map<Character, Integer> xMap = new HashMap<>();
-        Map<Character, Integer> yMap = new HashMap<>();
+        StringBuilder answer = new StringBuilder();
+        int[] xArr = new int[10];
+        int[] yArr = new int[10];
+        for (int i = 0; i < X.length(); i++) {
+            xArr[X.charAt(i) - '0']++;
+        }
+        for (int i = 0; i < Y.length(); i++) {
+            yArr[Y.charAt(i) - '0']++;
+        }
         
-        for (char c : X.toCharArray()) {
-            xMap.put(c, xMap.getOrDefault(c, 0) + 1);
-        }
-        for (char c : Y.toCharArray()) {
-            yMap.put(c, yMap.getOrDefault(c, 0) + 1);
-        }
-        List<Character> xKeys = new ArrayList<>(xMap.keySet());
-        xKeys.sort(Comparator.reverseOrder());
-        //xKeys.sort((a, b) -> b - a);
-        for (char key : xKeys) {
-            int count = Math.min(xMap.get(key), yMap.getOrDefault(key, 0));
-            for (int i = 0; i < count; i++) {
-                sb.append(key);
+        for (int i = 9; i >= 0; i--) {
+            int count = Math.min(xArr[i], yArr[i]);
+            for (int j = 0; j < count; j++) {
+                answer.append(i);
             }
         }
-        if (sb.length() == 0) {
+        if (answer.length() == 0) {
             return "-1";
         }
-        if (sb.charAt(0) == '0') {
+        if (answer.charAt(0) == '0') {
             return "0";
         }
-        return sb.toString();
+        return answer.toString();
     }
 }
