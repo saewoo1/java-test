@@ -1,24 +1,25 @@
+import java.util.*;
 
 class Solution {
     boolean solution(String s) {
-        boolean result = true;
-        int even = 0;
-        if (s.length() == 0) {
+        Stack<Character> stack = new Stack<>();
+        int len = s.length();
+        if (len % 2 != 0) {
             return false;
         }
-        for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == '(') {
-                even++;
+        for (char c : s.toCharArray()) {
+            if (c == ')') {
+                if (stack.isEmpty() || stack.peek() != '(') {
+                    return false;
+                }
+                stack.pop();
             } else {
-                even--;
-            }
-            if (even < 0) {
-                return false;
+                stack.push(c);
             }
         }
-        if (even != 0) {
+        if (!stack.isEmpty()) {
             return false;
         }
-		return result;
+        return true;
     }
 }
