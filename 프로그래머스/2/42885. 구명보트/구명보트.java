@@ -3,19 +3,24 @@ import java.util.*;
 class Solution {
     public int solution(int[] people, int limit) {
         int answer = 0;
-        // 최적 -> 가벼운 사람 + 무거운 사람
-        // 가벼운 + 가벼운 이면 100일 때 30 30 밖에 못타면 손해
         Arrays.sort(people);
-        int light = 0;
-        int heavy = people.length - 1;
-        while (light <= heavy) {
-            if (people[light] + people[heavy] <= limit) {
-                light++;
+        int i =0;
+        while (i < people.length) {
+            if (i + 2 < people.length) {
+                if (people[i] + people[i + 1] <= limit) {
+                    answer++;
+                    i += 2;
+                }
+                else {
+                    answer++;
+                    i++;
+                }
             }
-            heavy--;
-            answer++;
+            else {
+                answer++;
+                i++;
+            }
         }
-        
         return answer;
     }
 }
