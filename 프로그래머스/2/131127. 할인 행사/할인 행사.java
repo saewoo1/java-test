@@ -8,24 +8,10 @@ class Solution {
         for (int i = 0; i < want.length; i++) {
             basket.put(want[i], number[i]);
         }
-        Map<String, Integer> copy = new HashMap<>();
+        int count = 0;
         // discount에서 10개씩 보면서 value 지우기?
-        for (int i = 0; i <= discount.length - 10; i++) {
-            copy = new HashMap<>();
-            copy.putAll(basket);
-            for (int j = i; j < i + 10; j++) {
-                if (copy.containsKey(discount[j])) {
-                    if (copy.get(discount[j]) == 1) {
-                        copy.remove(discount[j]);
-                    }
-                    else {
-                        copy.put(discount[j], copy.get(discount[j]) - 1);
-                    }
-                }
-            }
-            if (copy.size() == 0) {
-                answer++;
-            }
+        for (int i = 0; i < discount.length - 10; i++) {
+            String
         }
         return answer;
     }
