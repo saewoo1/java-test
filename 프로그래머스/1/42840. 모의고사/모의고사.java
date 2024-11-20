@@ -2,11 +2,10 @@ import java.util.*;
 
 class Solution {
     public int[] solution(int[] answers) {
+        int[] scores = new int[3];
         int[] first = {1,2,3,4,5};
         int[] second = {2,1,2,3,2,4,2,5};
         int[] third = {3,3,1,1,2,2,4,4,5,5};
-        List<Integer> result = new ArrayList<>();
-        int[] scores = new int[3];
         
         for (int i = 0; i < answers.length; i++) {
             if (answers[i] == first[i % first.length]) {
@@ -19,17 +18,13 @@ class Solution {
                 scores[2]++;
             }
         }
-        int max = Integer.MIN_VALUE;
+        int maxScore = Arrays.stream(scores).max().orElse(0);
+        List<Integer> result = new ArrayList<>();
         for (int i = 0; i < scores.length; i++) {
-            max = Math.max(scores[i], max);
-        }
-        for (int i = 0; i < scores.length; i++) {
-            if (scores[i] == max) {
+            if (scores[i] == maxScore) {
                 result.add(i + 1);
             }
         }
-        
-        
         return result.stream().mapToInt(e -> e).toArray();
     }
 }
