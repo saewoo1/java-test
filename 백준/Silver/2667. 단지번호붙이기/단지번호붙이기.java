@@ -2,21 +2,27 @@ import java.util.*;
 
 public class Main {
     static boolean[][] graph;
-    static boolean[][] visited;
     static int n;
     static int[] dirR = {1,-1,0,0};
     static int[] dirC = {0,0,1,-1};
     static int home;
     
-    public static void dfs(int y, int x) {
+    public static void bfs(int y, int x) {
         home++;
-        visited[y][x] = true;
+        Queue<int[]> queue = new LinkedList<>();
+        graph[y][x] = false;
+        queue.add(new int[]{y, x});
         
-        for (int i = 0; i < 4; i++) {
-            int newY = y + dirR[i];
-            int newX = x + dirC[i];
-            if (!visited[newY][newX] && graph[newY][newX]) {
-                dfs(newY, newX);
+        while(!queue.isEmpty()) {
+            int[] current = queue.poll();
+            for (int i = 0; i < 4; i++) {
+                int newY = current[0] + dirR[i];
+                int newX = current[1] + dirC[i];
+                if (graph[newY][newX]) {
+                    graph[newY][newX] = false;
+                    home++;
+                    queue.add(new int[]{newY, newX});
+                }
             }
         }
     }
@@ -30,7 +36,6 @@ public class Main {
         
         // n줄이 입력받게 된다. n * n 사이즈니까 여유분 + 2로 넉넉히 그래프 생성
         graph = new boolean[n + 2][n + 2];
-        visited = new boolean[n + 2][n + 2];
         
         // 그래프에 정보 넣기
         for (int i = 1; i < n + 1; i ++) {
@@ -52,9 +57,9 @@ public class Main {
         List<Integer> danji = new ArrayList<>();
         for (int i = 1; i < n + 1; i++) {
             for (int j = 1; j < n + 1; j++) {
-                if (!visited[i][j] && graph[i][j]) {
+                if (graph[i][j]) {
                     home = 0;
-                    dfs(i, j);
+                    bfs(i, j);
                     danji.add(home);
                 }
             }
