@@ -1,37 +1,27 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
-  public static void main(String[] args) throws IOException {
-    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-    String numbers = bufferedReader.readLine();
-    StringTokenizer stringTokenizer = new StringTokenizer(numbers);
-    JudgePrimitive2 judgePrimitive2 = new JudgePrimitive2();
-
-    int M = Integer.parseInt(stringTokenizer.nextToken());
-    int N = Integer.parseInt(stringTokenizer.nextToken());
-
-    for (int i = M; i <= N; i++) {
-      if (judgePrimitive2.isPrimitive(i) == 1)
-        System.out.println(i);
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int start = scanner.nextInt();
+        int end = scanner.nextInt();
+        
+        for (int i = start; i <= end; i++) {
+            if (isPrime(i)) {
+                System.out.println(i);
+            }
+        }
     }
-  }
-}
-
-class JudgePrimitive2 {
-  int isPrimitive(int num) {
-    int flag = 1;
-
-    if (num == 1)
-        flag = 0;
-    for (int i = 2; i <= num / i; i++) {
-      if (num % i == 0) {
-        flag = 0;
-        break;
-      }
+    
+    public static boolean isPrime(int n) {
+        if (n < 2) {
+            return false;
+        }
+        for (int i = 2; i <= (int)Math.sqrt(n); i++) {
+            if (n % i == 0) {
+                return false;
+            }
+        }
+        return true;
     }
-    return flag;
-  }
 }
