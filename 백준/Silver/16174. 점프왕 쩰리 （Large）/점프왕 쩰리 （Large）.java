@@ -18,31 +18,32 @@ public class Main {
             }
         }
         
-        System.out.println(bfs(1,1) ? "HaruHaru" : "Hing");
+        System.out.println(dfs(1,1) ? "HaruHaru" : "Hing");
     }
     
-    public static boolean bfs(int y, int x) {
-        Queue<int[]> queue = new LinkedList<>();
-        queue.offer(new int[]{y, x});
+    public static boolean dfs(int y, int x) {
         visited[y][x] = true;
+        if (y == N && x == N) {
+            return true;
+        }
         
-        while(!queue.isEmpty()) {
-            int[] current = queue.poll();
-            if (current[0] == N && current[1] == N) {
+        int jumpCount = graph[y][x];
+        if (jumpCount == 0) {
+            return false;
+        }
+        int nextY = y + jumpCount;
+        int nextX = x + jumpCount;
+        if (nextY <= N && !visited[nextY][x]) {
+            if (dfs(nextY, x)) {
                 return true;
-            }
-            int jump = graph[current[0]][current[1]];
-            int[][] dirs = {{jump, 0}, {0, jump}};
-            for (int[] dir : dirs) {
-                int nextY = current[0] + dir[0];
-                int nextX = current[1] + dir[1];
-                if (nextY <= N && nextX <= N && !visited[nextY][nextX]) {
-                    visited[nextY][nextX] = true;
-                    queue.offer(new int[]{nextY, nextX});
-                }
             }
         }
         
+        if (nextX <= N && !visited[y][nextX]) {
+            if (dfs(y, nextX)) {
+                return true;
+            }
+        }
         return false;
     }
 }
