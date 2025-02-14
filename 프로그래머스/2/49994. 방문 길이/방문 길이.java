@@ -4,22 +4,23 @@ class Solution {
     public int solution(String dirs) {
         int answer = 0;
         int x = 0, y = 0;
-        Set<String> visited = new HashSet<>();
         
-        for (char dir : dirs.toCharArray()) {
+        Set<String> visited = new HashSet<>();
+        for (char c : dirs.toCharArray()) {
             int newX = x;
             int newY = y;
-            if (dir == 'U' && isInRange(x, y + 1)) {
-                newY += 1;
+            
+            if (c == 'U' && isInRange(x, y + 1)) {
+                y += 1;
             }
-            if (dir == 'D' && isInRange(x, y - 1)) {
-                newY -= 1;
+            if (c == 'D' && isInRange(x, y - 1)) {
+                y -= 1;
             }
-            if (dir == 'L' && isInRange(x - 1, y)) {
-                newX -= 1;
+            if (c == 'L' && isInRange(x - 1, y)) {
+                x -= 1;
             }
-            if (dir == 'R' && isInRange(x + 1, y)) {
-                newX += 1;
+            if (c == 'R' && isInRange(x + 1, y)) {
+                x += 1;
             }
             if (newX == x && newY == y) {
                 continue;
@@ -33,8 +34,8 @@ class Solution {
                 visited.add(path2);
                 answer++;
             }
-            x = newX;
-            y = newY;
+            newX = x;
+            newY = y;
         }
         return answer;
     }
